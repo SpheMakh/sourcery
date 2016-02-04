@@ -8,7 +8,6 @@ import Tigger
 import pyfits
 import numpy
 import subprocess
-import tempfile
 import os 
 import sys
 import logging
@@ -160,13 +159,10 @@ def thresh_mask(imagename, imagedata, output, hdr, thresh,
                 prefix=None, savemask=False):
     """ Create a threshhold mask """
 
-    #hdu = pyfits.open(imagename)
-    #hdr = hdu[0].header
-    
     ndim = hdr["NAXIS"] 
     imslice = [0] * ndim
     imslice[-2:] = [slice(None)] * 2
-    data = imagedata[imslice].copy()
+    data = imagedata[imslice]
     
     
     # If smooth is not specified, use a fraction of the beam
