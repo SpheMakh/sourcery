@@ -274,6 +274,8 @@ class load(object):
              blank_limit=self.noise/1000.0, trim_box=trim_box, prefix=self.prefix,
              **kw)
 
+        tpos.close()
+
 
     def remove_sources_within(self, model):
    
@@ -388,7 +390,7 @@ class load(object):
                 out[i,...] =   area[i], peak[i], total[i] , corr[i], nonear[i]
             
             elif not self.do_psf_corr and self.do_local_var and self.nearsources:
-                out[i,...] =   area[i], peak[i], flux[i] , local[i], nonear[i]
+                out[i,...] =   area[i], peak[i], total[i] , local[i], nonear[i]
             
             elif self.do_psf_corr and not self.do_local_var and not self.nearsources:
                 out[i,...] =   area[i], peak[i], total[i] , corr[i]
@@ -403,6 +405,7 @@ class load(object):
                 out[i,...] =   area[i], peak[i], total[i]
 
         model.save(outfile)
+        tfile.close()
                 
         return numpy.log10(out), labels 
 
